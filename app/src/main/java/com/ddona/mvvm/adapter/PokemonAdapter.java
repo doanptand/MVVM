@@ -36,6 +36,10 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
                 .into(holder.imgAvatar);
     }
 
+    public Pokemon getPokemonAt(int position) {
+        return mPokemons.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return mPokemons == null ? 0 : mPokemons.size();
