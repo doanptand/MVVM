@@ -1,8 +1,10 @@
-package com.ddona.mvvm;
+package com.ddona.mvvm.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.ddona.mvvm.R;
 
 public class MainActivity extends AppCompatActivity {
 
