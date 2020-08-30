@@ -1,9 +1,6 @@
 package com.ddona.mvvm.db;
 
-import android.app.Application;
-
 import androidx.room.Database;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.ddona.mvvm.model.Pokemon;
@@ -12,12 +9,4 @@ import com.ddona.mvvm.model.Pokemon;
 public abstract class PokemonDatabase extends RoomDatabase {
 
     public abstract PokemonDao pokemonDao();
-
-    public static PokemonDatabase getPokemonDatabase(Application application) {
-        return Room.databaseBuilder(application, PokemonDatabase.class, "PokemonDatabase")
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()//This only for test. remove it on production
-                .build();
-    }
-
 }
