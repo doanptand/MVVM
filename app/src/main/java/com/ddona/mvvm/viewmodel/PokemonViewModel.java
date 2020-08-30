@@ -14,6 +14,9 @@ import com.ddona.mvvm.repository.PokemonRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,26 +39,24 @@ public class PokemonViewModel extends ViewModel {
     }
 
     public void getPokemons() {
-        repository.getPokemons().enqueue(new Callback<PokemonResponse>() {
-            @Override
-            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
-                if (response.isSuccessful()) {
-                    ArrayList<com.ddona.mvvm.model.Pokemon> list = response.body().getResults();
-                    for (Pokemon pokemon : list) {
-                        String url = pokemon.getUrl();
-                        String[] pokemonIndex = url.split("/");
-                        pokemon.setUrl("https://pokeres.bastionbot.org/images/pokemon/" + pokemonIndex[pokemonIndex.length - 1] + ".png");
+        repository.getPokemons()
+                .subscribeOn(Schedulers.io())
+                .map(new Function<PokemonResponse, ArrayList<Pokemon>>() {
+                    @Override
+                    public ArrayList<Pokemon> apply(PokemonResponse pokemonResponse) throws Throwable {
+                        ArrayList<Pokemon> list = pokemonResponse.getResults();
+                        for (Pokemon pokemon : list) {
+                            String url = pokemon.getUrl();
+                            String[] pokemonIndex = url.split("/");
+                            pokemon.setUrl("https://pokeres.bastionbot.org/images/pokemon/" + pokemonIndex[pokemonIndex.length - 1] + ".png");
+                        }
+                        Log.e(TAG, "apply: " + list.get(2).getUrl());
+                        return list;
                     }
-                    pokemonList.postValue(list);
-                    Log.e(TAG, "apply: " + list.get(2).getUrl());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PokemonResponse> call, Throwable t) {
-                pokemonList.postValue(null);
-            }
-        });
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> pokemonList.setValue(result),
+                        error -> Log.e(TAG, "getPokemons: " + error.getMessage()));
     }
 
     public void insertPokemon(Pokemon pokemon) {
