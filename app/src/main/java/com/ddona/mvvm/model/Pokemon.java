@@ -1,7 +1,15 @@
 package com.ddona.mvvm.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+/**
+ * Created by ddona on 30,Aug,2020
+ */
+@Entity(tableName = "favorite_table")
 public class Pokemon {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
 

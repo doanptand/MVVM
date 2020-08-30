@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ddona.mvvm.R;
+import com.ddona.mvvm.db.PokemonDatabase;
 
 public class MainActivity extends AppCompatActivity {
 

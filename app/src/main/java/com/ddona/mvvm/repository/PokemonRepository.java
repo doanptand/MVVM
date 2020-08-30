@@ -1,11 +1,16 @@
 package com.ddona.mvvm.repository;
 
-import androidx.lifecycle.LiveData;
+import android.app.Application;
 
-import com.ddona.mvvm.db.Pokemon;
+import androidx.lifecycle.LiveData;
+import androidx.room.RoomDatabase;
+
 import com.ddona.mvvm.db.PokemonDao;
+import com.ddona.mvvm.db.PokemonDatabase;
+import com.ddona.mvvm.model.Pokemon;
 import com.ddona.mvvm.model.PokemonResponse;
 import com.ddona.mvvm.network.PokeApiService;
+import com.ddona.mvvm.network.PokemonModule;
 
 import java.util.List;
 
@@ -16,9 +21,9 @@ public class PokemonRepository {
     private PokeApiService pokeApiService;
 
 
-    public PokemonRepository(PokemonDao pokemonDao, PokeApiService pokeApiService) {
-        this.pokemonDao = pokemonDao;
-        this.pokeApiService = pokeApiService;
+    public PokemonRepository(Application application) {
+        this.pokemonDao = PokemonDatabase.getPokemonDatabase(application).pokemonDao();
+        this.pokeApiService = PokemonModule.getInstance();
     }
 
     public Call<PokemonResponse> getPokemons() {
