@@ -2,12 +2,10 @@ package com.ddona.mvvm.network;
 
 import com.ddona.mvvm.model.PokemonResponse;
 
-import javax.annotation.Generated;
-
-import io.reactivex.rxjava3.core.Observable;
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface PokeApiService {
     @GET("pokemon")
-    Observable<PokemonResponse> getPokemons();
+    Call<PokemonResponse> getPokemons();
 }
