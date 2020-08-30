@@ -9,9 +9,11 @@ import com.ddona.mvvm.db.PokemonDatabase;
 import com.ddona.mvvm.model.Pokemon;
 import com.ddona.mvvm.model.PokemonResponse;
 import com.ddona.mvvm.network.PokeApiService;
-import com.ddona.mvvm.network.PokemonModule;
+import com.ddona.mvvm.di.NetworkModule;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
 
@@ -19,10 +21,10 @@ public class PokemonRepository {
     private PokemonDao pokemonDao;
     private PokeApiService pokeApiService;
 
-
-    public PokemonRepository(Application application) {
-        this.pokemonDao = PokemonDatabase.getPokemonDatabase(application).pokemonDao();
-        this.pokeApiService = PokemonModule.getInstance();
+    @Inject
+    public PokemonRepository(PokemonDao pokemonDao, PokeApiService apiService) {
+        this.pokemonDao = pokemonDao;
+        this.pokeApiService = apiService;
     }
 
     public Observable<PokemonResponse> getPokemons() {

@@ -1,8 +1,8 @@
 package com.ddona.mvvm.viewmodel;
 
-import android.app.Application;
 import android.util.Log;
 
+import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,12 +14,11 @@ import com.ddona.mvvm.repository.PokemonRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PokemonViewModel extends ViewModel {
 
@@ -29,8 +28,9 @@ public class PokemonViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Pokemon>> pokemonList = new MutableLiveData<>();
     private LiveData<List<Pokemon>> favoritePokemonList = null;
 
-    public PokemonViewModel(Application application) {
-        this.repository = new PokemonRepository(application);
+    @ViewModelInject
+    public PokemonViewModel(PokemonRepository repository) {
+        this.repository = repository;
         favoritePokemonList = repository.getFavoritePokemon();
     }
 
