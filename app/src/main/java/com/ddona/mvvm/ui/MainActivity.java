@@ -1,12 +1,12 @@
 package com.ddona.mvvm.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.ddona.mvvm.R;
 import com.ddona.mvvm.adapter.PokemonPagerAdapter;

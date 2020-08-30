@@ -1,15 +1,11 @@
 package com.ddona.mvvm.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
 import com.ddona.mvvm.db.PokemonDao;
-import com.ddona.mvvm.db.PokemonDatabase;
 import com.ddona.mvvm.model.Pokemon;
 import com.ddona.mvvm.model.PokemonResponse;
 import com.ddona.mvvm.network.PokeApiService;
-import com.ddona.mvvm.di.NetworkModule;
 
 import java.util.List;
 

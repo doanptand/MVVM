@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ddona.mvvm.R;
 import com.ddona.mvvm.adapter.PokemonAdapter;
 import com.ddona.mvvm.databinding.FragmentPokemonBinding;
 import com.ddona.mvvm.model.Pokemon;
