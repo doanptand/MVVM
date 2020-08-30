@@ -39,18 +39,15 @@ public class PokemonViewModel extends ViewModel {
     public void getPokemons() {
         repository.getPokemons()
                 .subscribeOn(Schedulers.io())
-                .map(new Function<PokemonResponse, ArrayList<Pokemon>>() {
-                    @Override
-                    public ArrayList<Pokemon> apply(PokemonResponse pokemonResponse) throws Throwable {
-                        ArrayList<Pokemon> list = pokemonResponse.getResults();
-                        for (Pokemon pokemon : list) {
-                            String url = pokemon.getUrl();
-                            String[] pokemonIndex = url.split("/");
-                            pokemon.setUrl("https://pokeres.bastionbot.org/images/pokemon/" + pokemonIndex[pokemonIndex.length - 1] + ".png");
-                        }
-                        Log.e(TAG, "apply: " + list.get(2).getUrl());
-                        return list;
+                .map(pokemonResponse -> {
+                    ArrayList<Pokemon> list = pokemonResponse.getResults();
+                    for (Pokemon pokemon : list) {
+                        String url = pokemon.getUrl();
+                        String[] pokemonIndex = url.split("/");
+                        pokemon.setUrl("https://pokeres.bastionbot.org/images/pokemon/" + pokemonIndex[pokemonIndex.length - 1] + ".png");
                     }
+                    Log.e(TAG, "apply: " + list.get(2).getUrl());
+                    return list;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> pokemonList.setValue(result),
