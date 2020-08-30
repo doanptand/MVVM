@@ -5,12 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ddona.mvvm.R;
@@ -53,6 +55,28 @@ public class FavoriteFragment extends Fragment {
             adapter.notifyDataSetChanged();
             Log.d("doanpt", "favorite changed");
         });
+        setUpItemTouchHelper();
         return view;
+    }
+
+    private void setUpItemTouchHelper() {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START | ItemTouchHelper.END) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int swipedPokemonPosition = viewHolder.getAdapterPosition();
+                Pokemon pokemon = adapter.getPokemonAt(swipedPokemonPosition);
+                viewModel.deletePokemon(pokemon.getName());
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Pokemon deleted to favorites.", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(rvFavorite);
     }
 }
