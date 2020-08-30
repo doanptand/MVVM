@@ -53,6 +53,7 @@ public class FavoriteFragment extends Fragment {
             adapter.notifyDataSetChanged();
             Log.d("doanpt", "favorite changed");
         });
+        viewModel.getFavoritePokemon();
         setUpItemTouchHelper();
         return binding.getRoot();
     }
