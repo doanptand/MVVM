@@ -7,12 +7,11 @@ import javax.inject.Inject;
 
 public class Car {
 
-    @Inject
     Driver driver;
 
     @Inject
-    public Car() {
-
+    public Car(Driver driver) {
+        this.driver = driver;
     }
 
     public void drive() {
