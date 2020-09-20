@@ -11,18 +11,23 @@ import androidx.core.view.GravityCompat;
 import com.ddona.mvvm.R;
 import com.ddona.mvvm.adapter.PokemonPagerAdapter;
 import com.ddona.mvvm.databinding.ActivityMainBinding;
+import com.ddona.mvvm.di_demo.AnalyticsService;
 import com.ddona.mvvm.di_demo.Car;
 import com.google.android.material.navigation.NavigationView;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+
 //https://developer.android.com/training/dependency-injection/hilt-android
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding binding;
     @Inject
     Car car;
+
+    @Inject
+    AnalyticsService analyticsService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initViews();
         car.drive();
         car.sayHello();
+        analyticsService.analyticsMethods();
     }
 
     private void initViews() {
