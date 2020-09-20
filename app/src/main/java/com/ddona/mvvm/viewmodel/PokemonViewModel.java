@@ -50,7 +50,18 @@ public class PokemonViewModel extends ViewModel {
                     return list;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> pokemonList.setValue(result),
+                .subscribe(result -> {
+                            if (pokemonList.getValue() != null) {
+                                Log.d("doanpt", "list not empty");
+                                if (pokemonList.getValue().size() != result.size()) {
+                                    Log.d("doanpt", "list not empty set");
+                                    pokemonList.setValue(result);
+                                }
+                            } else {
+                                Log.d("doanpt", "list empty");
+                                pokemonList.setValue(result);
+                            }
+                        },
                         error -> Log.e(TAG, "getPokemons: " + error.getMessage()));
     }
 
