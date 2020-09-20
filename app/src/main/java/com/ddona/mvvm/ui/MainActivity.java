@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(binding.getRoot());
         initViews();
         car.drive();
+        car.sayHello();
     }
 
     private void initViews() {
