@@ -13,6 +13,7 @@ import com.ddona.mvvm.adapter.PokemonPagerAdapter;
 import com.ddona.mvvm.databinding.ActivityMainBinding;
 import com.ddona.mvvm.di_demo.AnalyticsService;
 import com.ddona.mvvm.di_demo.Car;
+import com.ddona.mvvm.di_demo.SomeLibrary;
 import com.google.android.material.navigation.NavigationView;
 
 import javax.inject.Inject;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Inject
     AnalyticsService analyticsService;
 
+    @Inject
+    SomeLibrary library;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         car.drive();
         car.sayHello();
         analyticsService.analyticsMethods();
+        library.doSomeAwesome();
     }
 
     private void initViews() {
