@@ -17,7 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-
+//https://developer.android.com/training/dependency-injection/hilt-android
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding binding;
