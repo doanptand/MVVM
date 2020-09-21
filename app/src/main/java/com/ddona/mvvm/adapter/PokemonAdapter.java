@@ -26,15 +26,14 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //this is binding data...
         ItemPokemonBinding binding = ItemPokemonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.binding.tvName.setText(mPokemons.get(position).getName());
-        Glide.with(holder.binding.imgAvatar).load(mPokemons.get(position).getUrl())
-                .into(holder.binding.imgAvatar);
+        holder.binding.setPokemon(getPokemonAt(position));
     }
 
     public Pokemon getPokemonAt(int position) {
