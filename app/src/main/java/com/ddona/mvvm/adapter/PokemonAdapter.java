@@ -1,16 +1,11 @@
 package com.ddona.mvvm.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.ddona.mvvm.R;
 import com.ddona.mvvm.databinding.ItemPokemonBinding;
 import com.ddona.mvvm.model.Pokemon;
 
@@ -45,12 +40,19 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         return mPokemons == null ? 0 : mPokemons.size();
     }
 
+    public void setData(List<Pokemon> data) {
+        this.mPokemons.clear();
+        mPokemons.addAll(data);
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ItemPokemonBinding binding;
 
         public ViewHolder(ItemPokemonBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            this.binding.executePendingBindings();
         }
     }
 }

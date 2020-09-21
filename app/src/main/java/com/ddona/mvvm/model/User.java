@@ -1,11 +1,5 @@
 package com.ddona.mvvm.model;
 
-import android.widget.ImageView;
-
-import androidx.databinding.BindingAdapter;
-
-import com.bumptech.glide.Glide;
-
 public class User {
     private String name;
     private String email;
@@ -18,11 +12,6 @@ public class User {
     }
 
     public User() {
-    }
-
-    @BindingAdapter("setImageRes")
-    public static void setImageResource(ImageView imageView, int resource) {
-        Glide.with(imageView).load(resource).into(imageView);
     }
 
     public String getName() {
