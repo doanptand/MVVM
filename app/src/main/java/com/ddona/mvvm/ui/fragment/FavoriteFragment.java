@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ddona.mvvm.adapter.PokemonAdapter;
+import com.ddona.mvvm.adapter.PokemonListAdapter;
 import com.ddona.mvvm.databinding.FragmentFavoriteBinding;
 import com.ddona.mvvm.model.Pokemon;
 import com.ddona.mvvm.viewmodel.PokemonViewModel;
@@ -35,7 +36,8 @@ public class FavoriteFragment extends Fragment {
 
     private PokemonViewModel viewModel;
     private List<Pokemon> mFavorites;
-    private PokemonAdapter adapter;
+    //    private PokemonAdapter adapter;
+    private PokemonListAdapter adapter;
     private FragmentFavoriteBinding binding;
 
     @Nullable
@@ -43,14 +45,12 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         mFavorites = new ArrayList<>();
-        adapter = new PokemonAdapter(mFavorites);
+        adapter = new PokemonListAdapter();
         binding.rvFavorite.setAdapter(adapter);
         Log.d("doanpt", "new favorite");
         viewModel = new ViewModelProvider(requireActivity()).get(PokemonViewModel.class);
         viewModel.getFavoritePokemonList().observe(getViewLifecycleOwner(), pokemons -> {
-            mFavorites.clear();
-            mFavorites.addAll(pokemons);
-            adapter.notifyDataSetChanged();
+            adapter.submitList(pokemons);
             Log.d("doanpt", "favorite changed");
         });
         viewModel.getFavoritePokemon();
@@ -68,7 +68,7 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int swipedPokemonPosition = viewHolder.getAdapterPosition();
-                Pokemon pokemon = adapter.getPokemonAt(swipedPokemonPosition);
+                Pokemon pokemon = adapter.getCurrentList().get(swipedPokemonPosition);
                 viewModel.deletePokemon(pokemon.getName());
                 adapter.notifyDataSetChanged();
                 Toast.makeText(getContext(), "Pokemon deleted to favorites.", Toast.LENGTH_SHORT).show();
