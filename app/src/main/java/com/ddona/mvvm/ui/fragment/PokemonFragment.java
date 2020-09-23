@@ -44,9 +44,7 @@ public class PokemonFragment extends Fragment {
         adapter = new PokemonAdapter(mPokemons);
         viewModel = new ViewModelProvider(requireActivity()).get(PokemonViewModel.class);
         viewModel.getPokemonList().observe(getViewLifecycleOwner(), pokemons -> {
-            mPokemons.clear();
-            mPokemons.addAll(pokemons);
-            adapter.notifyDataSetChanged();
+            adapter.setData(pokemons);
         });
         viewModel.getPokemons();
         binding.rvPokemon.setAdapter(adapter);

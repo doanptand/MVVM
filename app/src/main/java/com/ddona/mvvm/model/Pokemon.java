@@ -4,6 +4,8 @@ package com.ddona.mvvm.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 /**
  * Created by ddona on 30,Aug,2020
  */
@@ -43,5 +45,20 @@ public class Pokemon {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pokemon pokemon = (Pokemon) o;
+        return id == pokemon.id &&
+                name.equals(pokemon.name) &&
+                url.equals(pokemon.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, url);
     }
 }
